@@ -6,13 +6,18 @@ class AccountController extends Controller {
         $this->display();
     }
     public function signin() {
-        $username = $_POST['text'];
-        $userpwd = $_POST['pwd'];
-        echo $username;
-        echo $userpwd;
-    }
-    public function singup() {
+        echo phpinfo(); 
 
+    }
+    public function signup() {
+        $this->display('signup');
+    }
+    public function dosignup() {
+        $Account = M('Account');
+        $data['id'] = uniqid();
+        $data['username'] = $_POST['text'];
+        $data['userpwd'] = $_POST['pwd'];
+        $Account->create($data);
     }
 }
 ?>
