@@ -7,7 +7,9 @@ class AccountController extends Controller {
         $this->display();
     }
     public function signin() {
-        echo phpinfo();
+        $this->display("signin");
+    }
+    public function dosignin() {
 
     }
     public function signup() {

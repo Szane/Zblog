@@ -1,9 +1,12 @@
 <?php
-namespace Home\Controller;
-use Think\Controller;
+namespace Home \ Controller;
+use Think \ Controller;
 class IndexController extends Controller {
-	function index(){
-	    $this->display();
-	}
+    function index() {
+        $this->display();
+    }
+    public function showphpinfo() {
+        echo phpinfo();
+    }
 }
 ?>
