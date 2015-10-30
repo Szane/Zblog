@@ -12,6 +12,7 @@ class BlogController extends Controller {
             $this->ajaxReturn($cur_user_id);
         }
     }
+
     function zone() {
         $this->display('blog_index');
     }
@@ -19,10 +20,12 @@ class BlogController extends Controller {
     function newblog() {
         $this->display("blog_add");
     }
+
     function insertblog() {
         $Guid = new \ Home \ Common \ Util \ Guid();
         $Article = M('Article');
         $data['id'] = $Guid->getGuid();
     }
+
 }
 ?>

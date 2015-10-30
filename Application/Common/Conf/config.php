@@ -11,6 +11,11 @@ return array (
     'DB_DEBUG' => TRUE, // 数据库调试模式 开启后可以记录SQL日志 3.2.3新增
     'LAYOUT_ON' => true,
     'LAYOUT_NAME' => 'Layout/mainlayout',
-    'SESSION_OPTIONS' =>array( 'name' => 'session_id','expire' => 60)
+    'SESSION_OPTIONS' => array (
+        'name' => 'session_id',
+        'expire' => 60
+    ),
+    'SHOW_PAGE_TRACE' => true,
+    
 );
 ?>

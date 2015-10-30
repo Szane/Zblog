@@ -1,6 +1,5 @@
 <?php
 
-
 // 应用入口文件
 
 // 检测PHP环境
@@ -15,3 +14,4 @@ define('APP_PATH', './Application/');
 
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
+?>
