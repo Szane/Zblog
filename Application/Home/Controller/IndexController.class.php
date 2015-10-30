@@ -2,7 +2,6 @@
 namespace Home \ Controller;
 use Think \ Controller;
 class IndexController extends Controller {
-    $in_failed;
     function index() {
         $cur_user_id = session('current_user_id');
         if (empty ($cur_user_id)) {

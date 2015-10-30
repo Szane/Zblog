@@ -1,3 +1,19 @@
+$(document).ready(function() {
+    $("#publish-button").click(function() {
+        $.post("/index.php/Home/Blog/saveblog", {
+            blog_title : $("#blog_title").val(),
+            blog_content : $("#editor").val()
+        }, function(data, status) {
+            if (data == "publish_fail") {
+                alert("用户名或密码不正确！");
+            } else if (data == "publish_success") {
+                location.href = "/index.php/Home/Index/index";
+            } else if (data == "to_authorize") {
+                $("#signinModal").modal();
+            }
+        });
+    });
+});
 $(function() {
     function initToolbarBootstrapBindings() {
         var fonts = [ 'Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',

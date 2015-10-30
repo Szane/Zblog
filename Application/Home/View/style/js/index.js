@@ -8,7 +8,7 @@ $(document).ready(function() {
     $("#zone-index").click(function() {
         $.get("/index.php/Home/Blog/tozone", function(data, status) {
             if (data == "unauthorized") {
-                $("#signinModal").modal();
+                $("#signin_jumpModal").modal();
             } else {
                 location.href = "/index.php/Home/Blog/zone";
             }
@@ -29,8 +29,28 @@ $(document).ready(function() {
         }, function(data, status) {
             if (data == "authorize_fail") {
                 alert("用户名或密码不正确！");
-            } else if (data == "authorize_success") {
-                location.href = "/index.php/Home/Index/index";
+            } else {
+                location.href = data;
+            }
+        });
+    });
+    $("#signin-submit-jump").click(function() {
+        if ($("#text-username-jump").val() == '') {
+            alert("请输入用户名！");
+            return;
+        }
+        if ($("#text-userpwd-jump").val() == '') {
+            alert("请输入密码！");
+            return;
+        }
+        $.post("/index.php/Home/Account/dosignin", {
+            username : $("#text-username-jump").val(),
+            userpwd : $("#text-userpwd-jump").val()
+        }, function(data, status) {
+            if (data == "authorize_fail") {
+                alert("用户名或密码不正确！");
+            } else {
+                location.href = data;
             }
         });
     });

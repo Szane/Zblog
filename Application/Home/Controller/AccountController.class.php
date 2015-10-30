@@ -14,18 +14,20 @@ class AccountController extends Controller {
             $result = $Account->where($con1)->select();
             if (empty ($result)) {
                 $this->ajaxReturn('authorize_fail'); //登录失败
-                exit ();
             } else {
                 session('current_user_id', $Account->getField('id'));
                 $Role = M("Role");
                 $con2['id'] = $Account->getField('role_id');
                 $Role->where($cond2)->select();
                 session('current_user_role', $Role->getField('role_name'));
-                $this->ajaxReturn('authorize_success');
+                if (empty (session('pre_url'))) {
+                    $this->ajaxReturn('authorize_success');
+                } else {
+                    $this->ajaxReturn(session('pre_url'));
+                }
             }
         }
     }
-
     public function signup() {
         $this->display('signup');
     }

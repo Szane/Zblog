@@ -16,6 +16,8 @@ return array (
         'expire' => 60
     ),
     'SHOW_PAGE_TRACE' => true,
+    'LOG_RECORD' => true, // 开启日志记录
+
     
 );
 ?>

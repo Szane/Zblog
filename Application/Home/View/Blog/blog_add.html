@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <input name="add_blog_title" type="text" class="form-control" placeholder="请输入标题">
+                    <input id="blog_title" name="blog_title" type="text" class="form-control" placeholder="请输入标题">
                 </div>
             </div>
         </div>
@@ -71,6 +71,15 @@
                 <div id="editor"></div>
             </div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12" align="right">
+                <button id="preview-button" type="button" class="btn btn-default">预览</button>
+                <button id="publish-button" type="button" class="btn btn-primary">发布</button>
+                <button id="savedraft-button" type="button" class="btn btn-success">保存为草稿</button>
+                <button id="cancelblog-button" type="button" class="btn btn-link">取消</button>
+            </div>
+        </div>
     </form>
 </div>
-<script src="/Application/Home/View/style/js/blogindex.js"></script>
+<script src="/Application/Home/View/style/js/blog_new.js"></script>
