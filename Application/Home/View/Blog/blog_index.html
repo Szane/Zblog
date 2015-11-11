@@ -38,8 +38,16 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">文章列表</h3>
                         </div>
-                        <div class="panel-body"></div>
-                        <div id="blogtable"></div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <volist name="artslist" id="vo">
+                                <tr>
+                                    <td><a href="/index.php/Home/Blog/read/id/{$vo.blog_id}">{$vo.title}</a></td>
+                                    <td>{$vo.author}</td>
+                                </tr>
+                                </volist>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

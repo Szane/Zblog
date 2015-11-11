@@ -13,10 +13,11 @@ return array (
     'LAYOUT_NAME' => 'Layout/mainlayout',
     'SESSION_OPTIONS' => array (
         'name' => 'session_id',
-        'expire' => 60
+        'expire' => 600
     ),
     'SHOW_PAGE_TRACE' => true,
     'LOG_RECORD' => true, // 开启日志记录
+    'URL_PARAMS_BIND' => true //开启变量绑定
 
     
 );

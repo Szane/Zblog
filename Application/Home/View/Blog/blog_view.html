@@ -26,10 +26,18 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="panel panel-default">
-                        <div class="panel-body">章我们将讲解 Bootstrap 中的多媒体对象（Media
-                            Object）。这些抽象的对象样式用于创建各种类型的组件（比如：博客评论），我们可以在组件中使用图文混排，图像可以左对齐或者右对齐。媒体对象可以用更少的代码来实现媒体对象与文字的混排。 媒体对象轻量标记、易于扩展的特性是通过向简单的标记应用
-                            class 来实现的。你可以在 HTML 标签中添加以下两种形式来设置媒体对象： .media：该 class 允许将媒体对象里的多媒体（图像、视频、音频）浮动到内容区块的左边或者右边。
-                            .media-list：如果你需要一个列表，各项内容是无序列表的一部分，可以使用该 class。可用于评论列表与文章列表。 让我们来看看下面这个有关默认的媒体对象 .media 的实例：</div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <h4>{$blog.title}</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p class="small">{$vo.content}</p></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

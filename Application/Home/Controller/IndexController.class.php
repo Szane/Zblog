@@ -9,7 +9,9 @@ class IndexController extends Controller {
         } else {
             $this->display('index_in');
         }
-
+    }
+    function signin() {
+        $this->display('index_signin');
     }
     public function showphpinfo() {
         echo phpinfo();
