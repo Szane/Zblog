@@ -1,14 +1,16 @@
 <?php
 namespace Home \ Controller;
 use Think \ Controller;
+use Home \ Common \ Util \ CookieSessionUtil;
 class IndexController extends Controller {
     function index() {
-        $cur_user_id = session('current_user_id');
-        if (empty ($cur_user_id)) {
-            $this->display('index');
-        } else {
+        $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
+        if ($Check->checkIn()) {
             $this->display('index_in');
+        } else {
+            $this->display('index');
         }
+
     }
     function signin() {
         $this->display('index_signin');

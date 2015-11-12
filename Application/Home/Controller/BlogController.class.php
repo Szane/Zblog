@@ -3,14 +3,13 @@ namespace Home \ Controller;
 
 use Think \ Controller;
 use Home \ Common \ Util \ Guid;
+use Home \ Common \ Util \ CookieSessionUtil;
 
 class BlogController extends Controller {
     function tozone() {
-        $cur_user_id = session('current_user_id');
-        if (empty ($cur_user_id)) {
-            session('pre_url', '/index.php/Home/Blog/tozone');
-            $this->redirect('Index/signin');
-        } else {
+        $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
+        if ($Check->checkIn()) {
+            $cur_user_id = session('zblog_current_user_id');
             $blog = $this->getZoneBlogList($cur_user_id);
             $AccountData = M('account_data');
             $condition['deleted_flag'] = 0;
@@ -24,6 +23,9 @@ class BlogController extends Controller {
             }
             $this->assign('artslist', $artslist);
             $this->display('blog_index');
+        } else {
+            session('pre_url', '/index.php/Home/Blog/tozone');
+            $this->redirect('Index/signin');
         }
     }
     function newblog() {
@@ -37,16 +39,14 @@ class BlogController extends Controller {
     }
     function save() {
         try {
-            $cur_user_id = session('current_user_id');
-            if (empty ($cur_user_id)) {
-                $this->ajaxReturn("to_authorize");
-            } else {
+            $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
+            if ($Check->checkIn()) {
                 $Guid = new Guid();
                 dump($Guid);
                 exit ();
                 $Article = M('Article');
                 $data['id'] = $Guid->getGuid();
-                $data['author_id'] = $cur_user_id;
+                $data['author_id'] = session('zblog_current_user_id');
                 $data['title'] = I('post.title');
                 $data['content'] = I('post.content');
                 $data['created_time'] = date('Ymd H:i:s');
@@ -54,11 +54,12 @@ class BlogController extends Controller {
                 $data['deleted_flag'] = 0;
                 // $data['privacy'] = I('post.blog_privacy');
                 $Article->add($data);
-
-                $this->ajaxReturn("/index.php/Home/Blog/read/id/" . $data['id']);
+                $this->ajaxReturn('/index.php/Home/Blog/read/id/' . $data['id']);
+            } else {
+                $this->ajaxReturn('to_authorize');
             }
         } catch (Exception $e) {
-            $this->ajaxReturn("publish_fail");
+            $this->ajaxReturn('publish_fail');
         }
     }
 
@@ -70,11 +71,8 @@ class BlogController extends Controller {
         return $result;
     }
     function read($id) {
-        $cur_user_id = session('current_user_id');
-        if (empty ($cur_user_id)) {
-            session('pre_url', '/index.php/Home/Blog/read/id/' . $id);
-            $this->redirect('Index/signin');
-        } else {
+        $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
+        if ($Check->checkIn()) {
             $Article = M('Article');
             $condition['id'] = $id;
             $result = $Article->where($condition)->select();
@@ -82,6 +80,9 @@ class BlogController extends Controller {
             $blog['content'] = $result[0]['content'];
             $this->assign('blog', $blog);
             $this->display('blog_view');
+        } else {
+            session('pre_url', '/index.php/Home/Blog/read/id/' . $id);
+            $this->redirect('Index/signin');
         }
     }
 }
