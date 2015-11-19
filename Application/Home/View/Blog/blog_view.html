@@ -1,4 +1,15 @@
-<script src="/Application/Home/View/style/js/blog_view.js"></script>
+<script>
+    $(document).ready(function() {
+        var content = "{$blog.content}";
+        content = content.replace(/&lt;/g, "<");
+        content = content.replace(/&gt;/g, ">");
+        content = content.replace(/&amp;lt;/g, "<");
+        content = content.replace(/&amp;gt;/g, ">");
+        content = content.replace(/\\/g, " ");
+        alert(content);
+        $(content).prependTo("#blog-content");
+    });
+</script>
 <div class="container">
     <include file="./Application/Home/View/Layout/header_zone.html" />
     <div class="row">
@@ -31,13 +42,11 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <h4>{!$blog.title!}</h4>
+                                        <h4 align="center">{$blog.title}</h4>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td>
-                                        <div id="blog-hidden" hidden="true">{!$blog.content!}</div>
                                         <div id="blog-content"></div>
                                     </td>
                                 </tr>

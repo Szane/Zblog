@@ -1,5 +1,42 @@
 <title>Zone</title>
-<script src="/Application/Home/View/style/js/blog_index.js"></script>
+<script>
+    $(document).ready(
+            function() {
+                var totalPage = {$totalPage};
+                var curPage = {$page};
+                if(curPage==1){
+                    $("ul#pagination-blog").append(
+                            "<li><a href=\"/index.php/Home/Blog/tozone/page/"+curPage+"\">&laquo;</a></li>");
+                }else{
+                    var aim = curPage-1;
+                    $("ul#pagination-blog").append(
+                            "<li><a href=\"/index.php/Home/Blog/tozone/page/"+aim+"\">&laquo;</a></li>"); 
+                }
+                for(var i =1;i<=totalPage;i++){
+                    if(i==curPage){
+                        $("ul#pagination-blog")
+                        .append(
+                                "<li class=\"active pagenum\"><a href=\"/index.php/Home/Blog/tozone/page/"+i+"\">" + i
+                                        + "</a></li>");
+                    }else{
+                        $("ul#pagination-blog")
+                        .append(
+                                "<li><a class=\"pagenum\" href=\"/index.php/Home/Blog/tozone/page/"+i+"\">" + i
+                                        + "</a></li>"); 
+                    }
+                }
+                if(curPage==totalPage){
+                    $("ul#pagination-blog").append(
+                            "<li><a href=\"/index.php/Home/Blog/tozone/page/"+curPage+"\">&raquo;</a></li>");
+                    
+                }else{
+                   var aim =  curPage+1;
+                    $("ul#pagination-blog").append(
+                            "<li><a href=\"/index.php/Home/Blog/tozone/page/"+aim+"\">&raquo;</a></li>");
+                }
+              
+            });
+</script>
 <div class="container">
     <include file="./Application/Home/View/Layout/header_zone.html" />
     <div class="row">
@@ -42,13 +79,16 @@
                             <table class="table">
                                 <volist name="artslist" id="vo">
                                 <tr>
-                                    <td><a href="/index.php/Home/Blog/read/id/{!$vo.blog_id!}">{!$vo.title!}</a></td>
-                                    <td>{!$vo.author!}</td>
+                                    <td><a href="/index.php/Home/Blog/read/id/{$vo.blog_id}">{$vo.title}</a></td>
+                                    <td>{$vo.author}</td>
                                 </tr>
                                 </volist>
                             </table>
                         </div>
                     </div>
+                    <ul id="pagination-blog" class="pagination">
+                    </ul>
+                    <div id="count" hidden="true">{$count}</div>
                 </div>
             </div>
         </div>

@@ -17,9 +17,7 @@ return array (
     ),
     'SHOW_PAGE_TRACE' => true,
     'LOG_RECORD' => true, // 开启日志记录
-    'URL_PARAMS_BIND' => true, //开启变量绑定
-    'TMPL_L_DELIM' => '{!',
-    'TMPL_R_DELIM' => '!}',
+    'URL_PARAMS_BIND' => true //开启变量绑定
 
     
 );
