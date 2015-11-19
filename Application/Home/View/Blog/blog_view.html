@@ -1,3 +1,4 @@
+<script src="/Application/Home/View/style/js/blog_view.js"></script>
 <div class="container">
     <include file="./Application/Home/View/Layout/header_zone.html" />
     <div class="row">
@@ -30,11 +31,15 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <h4>{$blog.title}</h4>
+                                        <h4>{!$blog.title!}</h4>
                                     </td>
                                 </tr>
+
                                 <tr>
-                                    <td><p class="small">{$vo.content}</p></td>
+                                    <td>
+                                        <div id="blog-hidden" hidden="true">{!$blog.content!}</div>
+                                        <div id="blog-content"></div>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

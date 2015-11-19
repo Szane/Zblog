@@ -29,37 +29,31 @@ class BlogController extends Controller {
         }
     }
     function newblog() {
-        // $cur_user_id = session('current_user_id');
-        // if (empty ($cur_user_id)) {
-        // $this->ajaxReturn('unauthorized');
-        // } else {
-        // $this->ajaxReturn($cur_user_id);
-        // }
-        $this->display('blog_add');
+        $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
+        if ($Check->checkIn()) {
+            $this->display('blog_add');
+        } else {
+            session('pre_url', '/index.php/Home/Blog/newblog');
+            $this->redirect('Index/signin');
+        }
     }
-    function save() {
-        try {
-            $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
-            if ($Check->checkIn()) {
-                $Guid = new Guid();
-                dump($Guid);
-                exit ();
-                $Article = M('Article');
-                $data['id'] = $Guid->getGuid();
-                $data['author_id'] = session('zblog_current_user_id');
-                $data['title'] = I('post.title');
-                $data['content'] = I('post.content');
-                $data['created_time'] = date('Ymd H:i:s');
-                $data['updated_time'] = date('Ymd H:i:s');
-                $data['deleted_flag'] = 0;
-                // $data['privacy'] = I('post.blog_privacy');
-                $Article->add($data);
-                $this->ajaxReturn('/index.php/Home/Blog/read/id/' . $data['id']);
-            } else {
-                $this->ajaxReturn('to_authorize');
-            }
-        } catch (Exception $e) {
-            $this->ajaxReturn('publish_fail');
+    function addblog() {
+        $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
+        if ($Check->checkIn()) {
+            $cur_user_id = session('zblog_current_user_id');
+            $Guid = new \ Home \ Common \ Util \ Guid();
+            $Article = M('Article');
+            $data['id'] = $Guid->getGuid();
+            $data['title'] = I('post.title');
+            $data['content'] = I('post.content');
+            $data['author_id'] = $cur_user_id;
+            $data['created_time'] = date('y-m-d h:i:s', time());
+            $data['updated_time'] = date('y-m-d h:i:s', time());
+            $data['deleted_flag'] = 0;
+            $Article->add($data);
+            $this->ajaxReturn('/index.php/Home/Blog/read/id/' . $data['id']);
+        } else {
+            $this->ajaxReturn('to_authorize');
         }
     }
 
