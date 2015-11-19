@@ -2,6 +2,17 @@
 <script>
     $(document).ready(
             function() {
+                $(".btn-delete").click(function(){
+                    var bid = this.id;
+                    $.post("/index.php/Home/Blog/deleteblog",{
+                        id:bid
+                    },function(data,status){
+                       if(data=="delete_success"){
+                           alert("删除成功！");
+                           location.reload();
+                       } 
+                    });
+                });
                 var totalPage = {$totalPage};
                 var curPage = {$page};
                 if(curPage==1){
@@ -30,11 +41,11 @@
                             "<li><a href=\"/index.php/Home/Blog/tozone/page/"+curPage+"\">&raquo;</a></li>");
                     
                 }else{
-                   var aim =  curPage+1;
+                   var aim = curPage+1;
                     $("ul#pagination-blog").append(
                             "<li><a href=\"/index.php/Home/Blog/tozone/page/"+aim+"\">&raquo;</a></li>");
                 }
-              
+               
             });
 </script>
 <div class="container">
@@ -80,15 +91,17 @@
                                 <volist name="artslist" id="vo">
                                 <tr>
                                     <td><a href="/index.php/Home/Blog/read/id/{$vo.blog_id}">{$vo.title}</a></td>
-                                    <td>{$vo.author}</td>
+                                    <td width="20%" align="right"><small style="color: #B5B5B5">{$vo.created_time}</small></td>
+                                    <td width="12%" align="right">
+                                        <button type="button" class="btn btn-link btn-xs">编辑</button>
+                                        <button id={$vo.blog_id} type="button" class="btn btn-link btn-xs btn-delete">删除</button>
+                                    </td>
                                 </tr>
                                 </volist>
                             </table>
                         </div>
                     </div>
-                    <ul id="pagination-blog" class="pagination">
-                    </ul>
-                    <div id="count" hidden="true">{$count}</div>
+                    <ul id="pagination-blog" class="pagination"></ul>
                 </div>
             </div>
         </div>

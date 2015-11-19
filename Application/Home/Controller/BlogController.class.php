@@ -28,11 +28,10 @@ class BlogController extends Controller {
             $blog = $this->getZoneBlogList($cur_user_id, $start, $step);
             $AccountData = M('account_data');
             $condition['account_id'] = $cur_user_id;
-            $author = $AccountData->where($condition)->select();
             for ($i = 0; $i < count($blog); $i++) {
                 $art['blog_id'] = $blog[$i]['id'];
                 $art['title'] = $blog[$i]['title'];
-                $art['author'] = $author[0]['personal_name'];
+                $art['created_time'] = $blog[$i]['created_time'];
                 $artslist[$i] = $art;
             }
             $this->assign('totalPage', $totalPage);
@@ -63,8 +62,8 @@ class BlogController extends Controller {
             $data['title'] = I('post.title');
             $data['content'] = I('post.content');
             $data['author_id'] = $cur_user_id;
-            $data['created_time'] = date('y-m-d h:i:s', time());
-            $data['updated_time'] = date('y-m-d h:i:s', time());
+            $data['created_time'] = date('y-m-d H:i:s', time());
+            $data['updated_time'] = date('y-m-d H:i:s', time());
             $data['deleted_flag'] = 0;
             $Article->add($data);
             $this->ajaxReturn('/index.php/Home/Blog/read/id/' . $data['id']);
@@ -77,7 +76,7 @@ class BlogController extends Controller {
         $Article = M('Article');
         $condition['deleted_flag'] = 0;
         $condition['author_id'] = $user_id;
-        $result = $Article->where($condition)->order('created_time desc,id desc')->limit($start, $step)->select();
+        $result = $Article->where($condition)->order('created_time desc')->limit($start, $step)->select();
         return $result;
     }
     function read($id) {
@@ -93,6 +92,16 @@ class BlogController extends Controller {
         } else {
             session('pre_url', '/index.php/Home/Blog/read/id/' . $id);
             $this->redirect('Index/signin');
+        }
+    }
+    function deleteblog() {
+        $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
+        if ($Check->checkIn()) {
+            $Article = M('Article');
+            $condition['id'] = I('id');
+
+            $Article->where($condition)->setField('deleted_flag', 1);
+            $this->ajaxReturn("delete_success");
         }
     }
 }

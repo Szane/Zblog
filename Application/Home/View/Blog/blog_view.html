@@ -6,8 +6,12 @@
         content = content.replace(/&amp;lt;/g, "<");
         content = content.replace(/&amp;gt;/g, ">");
         content = content.replace(/\\/g, " ");
+        content = content.replace(/&quot;/g, "\"");
+        content = content.replace(/&nbsp;/g, " ");
+        content = content.replace(/&amp;nbsp;/g, " ");
+        content = content.replace(/&amp;amp;/g, "& ");
         alert(content);
-        $(content).prependTo("#blog-content");
+        $("#blog-content").append(content);
     });
 </script>
 <div class="container">
