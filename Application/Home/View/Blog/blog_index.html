@@ -1,38 +1,13 @@
 <title>Zone</title>
+<script src="/Application/Home/View/style/js/blog_index.js"></script>
 <script>
     $(document).ready(
             function() {
-                $(".btn-delete").click(function(){
-                    $.confirm({
-                        /* title: '提示',
-                        content: '确认删除？',
-                        confirmButtonClass: 'btn-danger',
-                        cancelButtonClass: 'btn-default',
-                        confirmButton: 'Y',
-                        cancelButton: 'N',
-                        columnClass: 'col-md-4 col-md-offset-4', */
-                        confirm: function(){
-                            var bid = this.id;
-                            $.post("/index.php/Home/Blog/deleteblog",{
-                                id:bid
-                            },function(data,status){
-                               if(data=="delete_success"){
-                                   alert("删除成功！");
-                                   location.reload();
-                               } 
-                            });
-                        },
-                        cancel: function(){
-                            
-                        }
-                    });
-                    
-                });
                 var totalPage = {$totalPage};
                 var curPage = {$page};
-                if(curPage==1){
+                if(curPage<=1){
                     $("ul#pagination-blog").append(
-                            "<li><a href=\"/index.php/Home/Blog/tozone/page/"+curPage+"\">&laquo;</a></li>");
+                            "<li class=\"disabled\"><a href=\"#\" >&laquo;</a></li>");
                 }else{
                     var aim = curPage-1;
                     $("ul#pagination-blog").append(
@@ -51,9 +26,9 @@
                                         + "</a></li>"); 
                     }
                 }
-                if(curPage==totalPage){
+                if(curPage>=totalPage){
                     $("ul#pagination-blog").append(
-                            "<li><a href=\"/index.php/Home/Blog/tozone/page/"+curPage+"\">&raquo;</a></li>");
+                            "<li class=\"disabled\"><a href=\"#\" >&raquo;</a></li>");
                     
                 }else{
                    var aim = curPage+1;
