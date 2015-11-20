@@ -3,9 +3,50 @@
 <head>
 <title>Zblog-纯粹的文字世界</title>
 <link href="/Application/Home/View/style/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="/Application/Home/View/style/css/jquery-confirm.min.css" rel="stylesheet">
 <script src="/Application/Home/View/style/jquery/jquery-1.11.3.min.js"></script>
 <script src="/Application/Home/View/style/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="/Application/Home/View/style/js/index.js"></script>
+<script src="/Application/Home/View/style/jquery/jquery-confirm.min.js"></script>
+<script>
+    jconfirm.defaults = {
+        title : '提示',
+        content : 'Are you sure to continue?',
+        contentLoaded : function() {
+        },
+        icon : '',
+        confirmButton : 'Okay',
+        cancelButton : 'Cancel',
+        confirmButtonClass : 'btn-default',
+        cancelButtonClass : 'btn-default',
+        theme : 'white',
+        animation : 'zoom',
+        closeAnimation : 'scale',
+        animationSpeed : 400,
+        animationBounce : 1.2,
+        keyboardEnabled : false,
+        rtl : false,
+        confirmKeys : [ 13, 32 ], // ENTER or SPACE key
+        cancelKeys : [ 27 ], // ESC key
+        container : 'body',
+        confirm : function() {
+        },
+        cancel : function() {
+        },
+        backgroundDismiss : true,
+        autoClose : false,
+        closeIcon : null,
+        columnClass : 'col-md-6 col-md-offset-3',
+        onOpen : function() {
+        },
+        onClose : function() {
+        },
+        onAction : function() {
+        }
+    };
+</script>
+
+
 </head>
 <body>
     <!--     <div class="page-header">

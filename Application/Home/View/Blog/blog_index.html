@@ -3,15 +3,30 @@
     $(document).ready(
             function() {
                 $(".btn-delete").click(function(){
-                    var bid = this.id;
-                    $.post("/index.php/Home/Blog/deleteblog",{
-                        id:bid
-                    },function(data,status){
-                       if(data=="delete_success"){
-                           alert("删除成功！");
-                           location.reload();
-                       } 
+                    $.confirm({
+                        /* title: '提示',
+                        content: '确认删除？',
+                        confirmButtonClass: 'btn-danger',
+                        cancelButtonClass: 'btn-default',
+                        confirmButton: 'Y',
+                        cancelButton: 'N',
+                        columnClass: 'col-md-4 col-md-offset-4', */
+                        confirm: function(){
+                            var bid = this.id;
+                            $.post("/index.php/Home/Blog/deleteblog",{
+                                id:bid
+                            },function(data,status){
+                               if(data=="delete_success"){
+                                   alert("删除成功！");
+                                   location.reload();
+                               } 
+                            });
+                        },
+                        cancel: function(){
+                            
+                        }
                     });
+                    
                 });
                 var totalPage = {$totalPage};
                 var curPage = {$page};
