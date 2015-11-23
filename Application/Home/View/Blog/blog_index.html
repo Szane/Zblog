@@ -5,37 +5,42 @@
             function() {
                 var totalPage = {$totalPage};
                 var curPage = {$page};
-                if(curPage<=1){
-                    $("ul#pagination-blog").append(
-                            "<li class=\"disabled\"><a href=\"#\" >&laquo;</a></li>");
+                if(totalPage==0){
+                    $("ul#pagination-blog").append("<li class=\"disabled\"><a href=\"#\" >&laquo;</a></li>");
+                    $("ul#pagination-blog").append("<li class=\"disabled\"><a href=\"#\" >1</a></li>");
+                    $("ul#pagination-blog").append("<li class=\"disabled\"><a href=\"#\" >&raquo;</a></li>");
                 }else{
-                    var aim = curPage-1;
-                    $("ul#pagination-blog").append(
-                            "<li><a href=\"/index.php/Home/Blog/tozone/page/"+aim+"\">&laquo;</a></li>"); 
-                }
-                for(var i =1;i<=totalPage;i++){
-                    if(i==curPage){
-                        $("ul#pagination-blog")
-                        .append(
-                                "<li class=\"active pagenum\"><a href=\"/index.php/Home/Blog/tozone/page/"+i+"\">" + i
-                                        + "</a></li>");
+                    if(curPage<=1){
+                        $("ul#pagination-blog").append(
+                                "<li class=\"disabled\"><a href=\"#\" >&laquo;</a></li>");
                     }else{
-                        $("ul#pagination-blog")
-                        .append(
-                                "<li><a class=\"pagenum\" href=\"/index.php/Home/Blog/tozone/page/"+i+"\">" + i
-                                        + "</a></li>"); 
+                        var aim = curPage-1;
+                        $("ul#pagination-blog").append(
+                                "<li><a href=\"/index.php/Home/Blog/tozone/page/"+aim+"\">&laquo;</a></li>"); 
+                    }
+                    for(var i =1;i<=totalPage;i++){
+                        if(i==curPage){
+                            $("ul#pagination-blog")
+                            .append(
+                                    "<li class=\"active pagenum\"><a href=\"/index.php/Home/Blog/tozone/page/"+i+"\">" + i
+                                            + "</a></li>");
+                        }else{
+                            $("ul#pagination-blog")
+                            .append(
+                                    "<li><a class=\"pagenum\" href=\"/index.php/Home/Blog/tozone/page/"+i+"\">" + i
+                                            + "</a></li>"); 
+                        }
+                    }
+                    if(curPage>=totalPage){
+                        $("ul#pagination-blog").append(
+                                "<li class=\"disabled\"><a href=\"#\" >&raquo;</a></li>");
+                        
+                    }else{
+                       var aim = curPage+1;
+                        $("ul#pagination-blog").append(
+                                "<li><a href=\"/index.php/Home/Blog/tozone/page/"+aim+"\">&raquo;</a></li>");
                     }
                 }
-                if(curPage>=totalPage){
-                    $("ul#pagination-blog").append(
-                            "<li class=\"disabled\"><a href=\"#\" >&raquo;</a></li>");
-                    
-                }else{
-                   var aim = curPage+1;
-                    $("ul#pagination-blog").append(
-                            "<li><a href=\"/index.php/Home/Blog/tozone/page/"+aim+"\">&raquo;</a></li>");
-                }
-               
             });
 </script>
 <div class="container">

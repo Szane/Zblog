@@ -3,6 +3,7 @@ $(document).ready(function() {
         location.href = "/index.php/Home/Blog/editblog/id/" + this.name;
     });
     $(".btn-delete").click(function() {
+        var bid = this.name;
         $.confirm({
             content : '确认删除？',
             confirmButtonClass : 'btn-danger',
@@ -11,7 +12,6 @@ $(document).ready(function() {
             cancelButton : 'N',
             backgroundDismiss : true,
             confirm : function() {
-                var bid = this.name;
                 $.post("/index.php/Home/Blog/deleteblog", {
                     id : bid
                 }, function(data, status) {

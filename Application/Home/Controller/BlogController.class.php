@@ -46,26 +46,34 @@ class BlogController extends Controller {
     function newblog() {
         $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
         if ($Check->checkIn()) {
-            $this->display('blog_add');
+            $this->display('blog_opt');
         } else {
             session('pre_url', '/index.php/Home/Blog/newblog');
             $this->redirect('Index/signin');
         }
     }
-    function addblog() {
+    function updateblog() {
         $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
         if ($Check->checkIn()) {
             $cur_user_id = session('zblog_current_user_id');
             $Guid = new \ Home \ Common \ Util \ Guid();
             $Article = M('Article');
-            $data['id'] = $Guid->getGuid();
+            $blogId = I('post.blog_id');
+
             $data['title'] = I('post.title');
             $data['content'] = I('post.content');
             $data['author_id'] = $cur_user_id;
             $data['created_time'] = date('y-m-d H:i:s', time());
             $data['updated_time'] = date('y-m-d H:i:s', time());
             $data['deleted_flag'] = 0;
-            $Article->add($data);
+            if (empty ($blogId)) {
+                $data['id'] = $Guid->getGuid();
+                $Article->add($data);
+            } else {
+                $data['id'] = $blogId;
+                $Article->save($data);
+            }
+
             $this->ajaxReturn('/index.php/Home/Blog/read/id/' . $data['id']);
         } else {
             $this->ajaxReturn('to_authorize');
@@ -84,14 +92,18 @@ class BlogController extends Controller {
         if ($Check->checkIn()) {
             $Article = M('Article');
             $condition['id'] = $id;
+            $condition['deleted_flag'] = 0;
             $result = $Article->where($condition)->select();
             if (empty ($result)) {
                 $this->redirect('Blog/tozone');
+            } else {
+                $blog['id'] = $result[0]['id'];
+                $blog['title'] = $result[0]['title'];
+                $blog['content'] = $result[0]['content'];
+                $blog['created_time'] = $result[0]['created_time'];
+                $this->assign('blog', $blog);
+                $this->display('blog_view');
             }
-            $blog['title'] = $result[0]['title'];
-            $blog['content'] = $result[0]['content'];
-            $this->assign('blog', $blog);
-            $this->display('blog_view');
         } else {
             session('pre_url', '/index.php/Home/Blog/read/id/' . $id);
             $this->redirect('Index/signin');
@@ -101,10 +113,13 @@ class BlogController extends Controller {
         $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
         if ($Check->checkIn()) {
             $Article = M('Article');
-            $condition['id'] = I('id');
-
-            $Article->where($condition)->setField('deleted_flag', 1);
+            $condition['id'] = I('post.id');
+            $data['deleted_flag'] = 1;
+            $Article->where($condition)->data($data)->save();
             $this->ajaxReturn("delete_success");
+        } else {
+            session('pre_url', '/index.php/Home/Blog/read/id/' . $condition['id']);
+            $this->redirect('Index/signin');
         }
     }
     function editblog($id) {
@@ -115,12 +130,18 @@ class BlogController extends Controller {
             $result = $Article->where($condition)->select();
             if (empty ($result)) {
                 $this->redirect('Blog/tozone');
+            } else {
+                $blog['id'] = $result[0]['id'];
+                $blog['title'] = $result[0]['title'];
+                $blog['content'] = $result[0]['content'];
+                $this->assign('blog', $blog);
+                $this->display('blog_opt');
             }
-            $blog['title'] = $result[0]['title'];
-            $blog['content'] = $result[0]['content'];
-            $this->assign('blog', $blog);
-            $this->display('blog_add');
+        } else {
+            session('pre_url', '/index.php/Home/Blog/editblog/id/' . $id);
+            $this->redirect('Index/signin');
         }
     }
+
 }
 ?>
