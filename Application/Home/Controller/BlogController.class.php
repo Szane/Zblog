@@ -85,6 +85,9 @@ class BlogController extends Controller {
             $Article = M('Article');
             $condition['id'] = $id;
             $result = $Article->where($condition)->select();
+            if (empty ($result)) {
+                $this->redirect('Blog/tozone');
+            }
             $blog['title'] = $result[0]['title'];
             $blog['content'] = $result[0]['content'];
             $this->assign('blog', $blog);
@@ -102,6 +105,21 @@ class BlogController extends Controller {
 
             $Article->where($condition)->setField('deleted_flag', 1);
             $this->ajaxReturn("delete_success");
+        }
+    }
+    function editblog($id) {
+        $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
+        if ($Check->checkIn()) {
+            $Article = M('Article');
+            $condition['id'] = $id;
+            $result = $Article->where($condition)->select();
+            if (empty ($result)) {
+                $this->redirect('Blog/tozone');
+            }
+            $blog['title'] = $result[0]['title'];
+            $blog['content'] = $result[0]['content'];
+            $this->assign('blog', $blog);
+            $this->display('blog_add');
         }
     }
 }

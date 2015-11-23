@@ -83,8 +83,8 @@
                                     <td><a href="/index.php/Home/Blog/read/id/{$vo.blog_id}">{$vo.title}</a></td>
                                     <td width="20%" align="right"><small style="color: #B5B5B5">{$vo.created_time}</small></td>
                                     <td width="12%" align="right">
-                                        <button type="button" class="btn btn-link btn-xs">编辑</button>
-                                        <button id={$vo.blog_id} type="button" class="btn btn-link btn-xs btn-delete">删除</button>
+                                        <button name={$vo.blog_id} type="button" class="btn btn-link btn-xs btn-edit">编辑</button>
+                                        <button name={$vo.blog_id} type="button" class="btn btn-link btn-xs btn-delete">删除</button>
                                     </td>
                                 </tr>
                                 </volist>

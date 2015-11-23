@@ -8,7 +8,24 @@
 <script src="/Application/Home/View/style/bootstrap-wysiwyg/external/google-code-prettify/prettify.js"></script>
 <link href="/Application/Home/View/style/bootstrap-wysiwyg/index.css" rel="stylesheet">
 <script src="/Application/Home/View/style/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
-<script src="/Application/Home/View/style/js/blog_new.js"></script>
+<script src="/Application/Home/View/style/js/blog_opt.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#blog_title").val("{$blog.title}");
+        var content = "{$blog.content}";
+        content = content.replace(/&lt;/g, "<");
+        content = content.replace(/&gt;/g, ">");
+        content = content.replace(/&amp;lt;/g, "<");
+        content = content.replace(/&amp;gt;/g, ">");
+        content = content.replace(/\\/g, " ");
+        content = content.replace(/&quot;/g, "\"");
+        content = content.replace(/&nbsp;/g, " ");
+        content = content.replace(/&amp;nbsp;/g, " ");
+        content = content.replace(/&amp;amp;/g, "& ");
+        $("#editor").append(content);
+    });
+</script>
+
 <div class="container">
     <include file="./Application/Home/View/Layout/header_zone.html" />
     <div id="alerts"></div>

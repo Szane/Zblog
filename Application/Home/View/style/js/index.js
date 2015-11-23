@@ -83,38 +83,3 @@ $(document).ready(function() {
         });
     });
 });
-jconfirm.defaults = {
-    title : '提示',
-    content : '',
-    contentLoaded : function() {
-    },
-    icon : '',
-    confirmButton : 'Okay',
-    cancelButton : 'Cancel',
-    confirmButtonClass : 'btn-default',
-    cancelButtonClass : 'btn-default',
-    theme : 'white',
-    animation : 'zoom',
-    closeAnimation : 'scale',
-    animationSpeed : 400,
-    animationBounce : 1.2,
-    keyboardEnabled : false,
-    rtl : false,
-    // confirmKeys : [ 13, 32 ], // ENTER or SPACE key
-    cancelKeys : [ 27 ], // ESC key
-    container : 'body',
-    confirm : function() {
-    },
-    cancel : function() {
-    },
-    backgroundDismiss : false,
-    autoClose : false,
-    closeIcon : null,
-    columnClass : 'col-md-4 col-md-offset-4',
-    onOpen : function() {
-    },
-    onClose : function() {
-    },
-    onAction : function() {
-    }
-};
