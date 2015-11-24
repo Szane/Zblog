@@ -30,4 +30,12 @@ $(document).ready(function() {
                 location.href = data;
         });
     });
+    // 保存为草稿
+    $("#savedraft-button").click(function() {
+
+    });
+    // 取消
+    $("#cancelblog-button").click(function() {
+
+    });
 });

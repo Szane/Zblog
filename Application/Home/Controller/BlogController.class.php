@@ -79,7 +79,18 @@ class BlogController extends Controller {
             $this->ajaxReturn('to_authorize');
         }
     }
+    function savedraft() {
+        $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
+        if ($Check->checkIn()) {
+        	 $cur_user_id = session('zblog_current_user_id');
+            $Guid = new \ Home \ Common \ Util \ Guid();
+           $Article = M('Article');
+        	
+        } else {
+            $this->ajaxReturn('to_authorize');
+        }
 
+    }
     private function getZoneBlogList($user_id, $start, $step) {
         $Article = M('Article');
         $condition['deleted_flag'] = 0;
