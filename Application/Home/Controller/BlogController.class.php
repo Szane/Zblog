@@ -15,7 +15,7 @@ class BlogController extends Controller {
             $condition['author_id'] = $cur_user_id;
             $condition['deleted_flag'] = 0;
             $sumCount = $Article->where($condition)->count();
-            $totalPage = floor($sumCount / $step);
+            $totalPage = ceil($sumCount / $step);
             if ($totalPage == 0)
                 $page = 1;
             else {
@@ -82,10 +82,10 @@ class BlogController extends Controller {
     function savedraft() {
         $Check = new \ Home \ Common \ Util \ CookieSessionUtil();
         if ($Check->checkIn()) {
-        	 $cur_user_id = session('zblog_current_user_id');
+            $cur_user_id = session('zblog_current_user_id');
             $Guid = new \ Home \ Common \ Util \ Guid();
-           $Article = M('Article');
-        	
+            $Article = M('Article');
+
         } else {
             $this->ajaxReturn('to_authorize');
         }
